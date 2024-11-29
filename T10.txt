@@ -1,0 +1,31 @@
+section .data
+    sum db 0          ; Variable para almacenar la suma
+    count db 1        ; Contador inicializado a 1
+
+section .text
+    global _start
+
+_start:
+    ; Inicializar sum a 0 (esto ya está en la sección de datos)
+    ; Inicializar count a 1 (esto ya está en la sección de datos)
+    
+    ; Empieza el ciclo while
+    cmp byte [count], 10   ; Compara count con 10
+    jg fin                 ; Si count > 10, termina el ciclo
+    
+bucle:
+    ; Sumar count a sum
+    add byte [sum], [count] ; sum = sum + count
+
+    ; Incrementar count
+    inc byte [count]        ; count = count + 1
+
+    ; Volver a comprobar la condición (count <= 10)
+    cmp byte [count], 10     ; Compara count con 10
+    jle bucle                ; Si count <= 10, repite el ciclo
+
+fin:
+    ; Aquí el programa termina, el valor de sum tiene la suma de 1 a 10
+    ; Esto es solo un ejemplo de cómo acabar el programa de forma simple
+    mov eax, 1               ; syscall number for exit
+    int 0x80                 ; hacer la llamada al sistema para salir
